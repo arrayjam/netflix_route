@@ -21,6 +21,7 @@ function main {
 
   if [[ "$1" -eq "$NETFLIX_INTERFACE" ]]; then
     route_aws
+    route_netflix
   fi
 }
 
@@ -33,6 +34,18 @@ function route_aws {
   else
     sh aws_ip_range.sh > $aws_filename
     route_aws
+  fi
+}
+
+function route_netflix {
+  netflix_filename="$RANGES_DIR/netflix"
+  if [[ -f "$netflix_filename" ]]; then
+    while read net; do
+      route_ip $net $NETFLIX_INTERFACE
+    done < $netflix_filename
+  else
+    # TODO(yuri): Find some source for these, for now they're just in git
+    echo "Need to get Netflix IPs"
   fi
 }
 
