@@ -1,7 +1,8 @@
 #!/bin/sh
 
 NETFLIX_INTERFACE="ppp0"
-RANGES_DIR="ranges"
+BASE_DIR=$(dirname $BASH_SOURCE)
+RANGES_DIR="./ranges"
 
 function main {
   if [[ $(id -u ) -ne 0 ]]; then
@@ -49,13 +50,10 @@ function route_netflix {
 }
 
 function route_ip {
-  route_opts="-net $1 -interface $2"
-  get=$(route -n get $route_opts 2>&1)
-
-  # Don't try to set a route again
-  if [[ "$get" == *"not in table"* ]]; then
-    route -n add $route_opts
-  fi
+  /sbin/route -q -n add -net $1 -interface $2
 }
 
+
+pushd $BASE_DIR
 main "$@"
+popd
