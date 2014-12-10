@@ -1,5 +1,4 @@
 #!/bin/sh
-# AWS IPs can be found via https://ip-ranges.amazonaws.com/ip-ranges.json
 
 NETFLIX_INTERFACE="ppp0"
 RANGES_DIR="ranges"
