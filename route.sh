@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NETFLIX_INTERFACE="ppp0"
-BASE_DIR=$(dirname $BASH_SOURCE)
+BASE_DIR="$(dirname "${BASH_SOURCE[0]}")"
 RANGES_DIR="./ranges"
 
 function main {
